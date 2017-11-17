@@ -2,19 +2,28 @@
 variable "name" {}
 variable "vpc_id" {}
 variable "subnet_ids" {}
+variable "zone_id" {}
+
 
 // Optional
 variable "version" {
   default = "5.5"
 }
+
 variable "itype" {
   default = "m4.large.elasticsearch"
 }
+
 variable "icount" {
   default = 1
 }
+
 variable "dedicated_master" {
   default = false
+}
+
+variable "mtype" {
+  default = ""
 }
 
 variable "mcount" {
@@ -85,6 +94,7 @@ resource "aws_elasticsearch_domain" "es" {
     instance_type = "${var.itype}"
     instance_count = "${var.icount}"
     dedicated_master_enabled = "${var.dedicated_master}"
+    dedicated_master_type   = "${var.mtype}"
     dedicated_master_count = "${var.mcount}"
     zone_awareness_enabled = "${var.zone_awareness}"
   }
@@ -113,4 +123,14 @@ resource "aws_elasticsearch_domain" "es" {
   tags {
     Domain = "${var.name}"
   }
+}
+
+# Add ALB record on DNS
+resource "aws_route53_record" "main" {
+  zone_id = "${var.zone_id}"
+  name    = "${var.name}"
+  type    = "CNAME"
+  ttl     = "300"
+
+  records = ["${aws_elasticsearch_domain.es.endpoint}"]
 }
