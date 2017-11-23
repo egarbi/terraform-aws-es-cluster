@@ -101,7 +101,7 @@ resource "aws_elasticsearch_domain" "es" {
 
   vpc_options {
     security_group_ids = [ "${aws_security_group.elasticsearch.id}" ]
-    subnet_ids         = [ "${var.subnet_ids}" ]
+    subnet_ids = ["${split(",", var.subnet_ids)}"]
   }
 
   advanced_options {
