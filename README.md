@@ -12,6 +12,6 @@ module "es-cluster" {
   subnet_ids                = [ "subnet-one","subnet-two"]
   zone_id                   = "ZA863HSKDDD9"
   itype                     = "m4.large.elasticsearch"
-  ingress_allow_cidr_blocks = [ 10.20.0.0/16, "10.22.0.0/16" ]
+  ingress_allow_cidr_blocks = [ "10.20.0.0/16", "10.22.0.0/16" ]
 }
 ```
