@@ -1,7 +1,9 @@
 // Required
 variable "name" {}
 variable "vpc_id" {}
-variable "subnet_ids" {}
+variable "subnet_ids" {
+  type = "list"
+}
 variable "zone_id" {}
 
 
@@ -133,4 +135,8 @@ resource "aws_route53_record" "main" {
   ttl     = "300"
 
   records = ["${aws_elasticsearch_domain.es.endpoint}"]
+}
+
+output "es_endpoint" {
+  value = "${aws_elasticsearch_domain.es.endpoint}"
 }
