@@ -136,3 +136,7 @@ resource "aws_route53_record" "main" {
 
   records = ["${aws_elasticsearch_domain.es.endpoint}"]
 }
+
+output "es_endpoint" {
+  value = "${aws_elasticsearch_domain.es.endpoint}"
+}
