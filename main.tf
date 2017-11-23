@@ -1,7 +1,9 @@
 // Required
 variable "name" {}
 variable "vpc_id" {}
-variable "subnet_ids" {}
+variable "subnet_ids" {
+  type = "list"
+}
 variable "zone_id" {}
 
 
