@@ -59,6 +59,10 @@ variable "snapshot_start" {
   default = 0
 }
 
+variable "volume_size" {
+  default = "35"
+}
+
 
 resource "aws_security_group" "elasticsearch" {
   name        = "${var.name}"
@@ -115,7 +119,7 @@ resource "aws_elasticsearch_domain" "es" {
   ebs_options {
     ebs_enabled = true
     volume_type = "gp2"
-    volume_size = "35"
+    volume_size = "${var.volume_size}"
   }
 
   snapshot_options {
