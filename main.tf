@@ -64,6 +64,11 @@ variable "volume_size" {
 }
 
 
+variable "access_policies" {
+  description = "IAM policy document specifying the access policies for the domain"
+  default     = ""
+}
+
 resource "aws_security_group" "elasticsearch" {
   name        = "${var.name}"
   description = "Security Group to allow traffic to ElasticSearch"
