@@ -10,7 +10,7 @@ variable "subnet_ids" {
 variable "zone_id" {}
 
 // Optional
-variable "version" {
+variable "elasticsearch_version" {
   default = "5.5"
 }
 
@@ -101,7 +101,7 @@ resource "aws_security_group" "elasticsearch" {
 
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.name}"
-  elasticsearch_version = "${var.version}"
+  elasticsearch_version = "${var.elasticsearch_version}"
 
   cluster_config {
     instance_type            = "${var.itype}"
