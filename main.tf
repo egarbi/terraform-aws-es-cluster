@@ -110,7 +110,7 @@ resource "aws_elasticsearch_domain" "es" {
     zone_awareness_enabled = "${var.zone_awareness}"
   }
 
-  access_policies = ${var.access_policies}
+  access_policies = "${var.access_policies}"
 
   vpc_options {
     security_group_ids = [ "${aws_security_group.elasticsearch.id}" ]
