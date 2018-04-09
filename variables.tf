@@ -36,7 +36,7 @@ variable "dedicated_master" {
 }
 
 variable "encryption_enabled" {
-  default     = "no"
+  default     = "false"
   description = "Enable encription in Elastic Search."
   type        = "string"
 }
