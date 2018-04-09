@@ -1,76 +1,3 @@
-// Required
-variable "name" {}
-
-variable "vpc_id" {}
-
-variable "subnet_ids" {
-  type = "list"
-}
-
-variable "zone_id" {}
-
-// Optional
-variable "elasticsearch_version" {
-  default = "5.5"
-}
-
-variable "itype" {
-  default = "m4.large.elasticsearch"
-}
-
-variable "icount" {
-  default = 1
-}
-
-variable "dedicated_master" {
-  default = false
-}
-
-variable "mtype" {
-  default = ""
-}
-
-variable "mcount" {
-  default = 0
-}
-
-variable "zone_awareness" {
-  default = false
-}
-
-variable "ingress_allow_security_groups" {
-  default = []
-}
-
-variable "ingress_allow_cidr_blocks" {
-  default = []
-}
-
-variable "rest_action_multi_allow_explicit_index" {
-  default = "true"
-}
-
-variable "indices_fielddata_cache_size" {
-  default = ""
-}
-
-variable "indices_query_bool_max_clause_count" {
-  default = 1024
-}
-
-variable "snapshot_start" {
-  default = 0
-}
-
-variable "volume_size" {
-  default = "35"
-}
-
-variable "access_policies" {
-  description = "IAM policy document specifying the access policies for the domain"
-  default     = ""
-}
-
 resource "aws_security_group" "elasticsearch" {
   name        = "${var.name}"
   description = "Security Group to allow traffic to ElasticSearch"
@@ -127,7 +54,7 @@ resource "aws_elasticsearch_domain" "es" {
 
   ebs_options {
     ebs_enabled = true
-    volume_type = "gp2"
+    volume_type = "${var.volume_type}"
     volume_size = "${var.volume_size}"
   }
 
@@ -148,8 +75,4 @@ resource "aws_route53_record" "main" {
   ttl     = "300"
 
   records = ["${aws_elasticsearch_domain.es.endpoint}"]
-}
-
-output "es_endpoint" {
-  value = "${aws_elasticsearch_domain.es.endpoint}"
 }
