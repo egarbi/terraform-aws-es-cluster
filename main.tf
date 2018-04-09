@@ -29,6 +29,10 @@ resource "aws_security_group" "elasticsearch" {
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.name}"
   elasticsearch_version = "${var.elasticsearch_version}"
+  encrypt_at_rest {
+    enabled    = "${var.encryption_enabled}"
+    kms_key_id = "${var.encryption_kms_key_id}"
+  }
 
   cluster_config {
     instance_type            = "${var.itype}"
