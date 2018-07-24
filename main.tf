@@ -16,13 +16,13 @@ resource "aws_security_group_rule" "secure_cidrs" {
 }
 
 resource "aws_security_group_rule" "secure_sgs" {
-  count = "${length(split(",", var.ingress_allow_security_groups))}"
+  count = "${length(var.ingress_allow_security_groups)}"
 
   type                     = "ingress"
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
-  source_security_group_id = "${element(split(",",var.ingress_allow_security_groups), count.index)}"
+  source_security_group_id = "${element(var.ingress_allow_security_groups, count.index)}"
 
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
@@ -38,13 +38,13 @@ resource "aws_security_group_rule" "nonsecure_cidrs" {
 }
 
 resource "aws_security_group_rule" "nonsecure_sgs" {
-  count = "${length(split(",", var.ingress_allow_security_groups))}"
+  count = "${length(var.ingress_allow_security_groups)}"
 
   type                     = "ingress"
   from_port                = 80
   to_port                  = 80
   protocol                 = "tcp"
-  source_security_group_id = "${element(split(",",var.ingress_allow_security_groups), count.index)}"
+  source_security_group_id = "${element(var.ingress_allow_security_groups, count.index)}"
 
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
