@@ -29,30 +29,6 @@ resource "aws_security_group_rule" "secure_sgs" {
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
 
-resource "aws_security_group_rule" "nonsecure_cidrs" {
-  count = "${length(var.ingress_allow_cidr_blocks) > 0 ? 1 : 0}"
-
-  type        = "ingress"
-  from_port   = 80
-  to_port     = 80
-  protocol    = "TCP"
-  cidr_blocks = ["${var.ingress_allow_cidr_blocks}"]
-
-  security_group_id = "${aws_security_group.elasticsearch.id}"
-}
-
-resource "aws_security_group_rule" "nonsecure_sgs" {
-  count = "${length(var.ingress_allow_security_groups)}"
-
-  type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
-  protocol                 = "tcp"
-  source_security_group_id = "${element(var.ingress_allow_security_groups, count.index)}"
-
-  security_group_id = "${aws_security_group.elasticsearch.id}"
-}
-
 resource "aws_security_group_rule" "egress_all" {
   type        = "egress"
   from_port   = 0
