@@ -6,6 +6,8 @@ resource "aws_security_group" "elasticsearch" {
 }
 
 resource "aws_security_group_rule" "secure_cidrs" {
+  count = "${length(var.ingress_allow_cidr_blocks) > 0 ? 1 : 0}"
+
   type        = "ingress"
   from_port   = 443
   to_port     = 443
@@ -28,6 +30,8 @@ resource "aws_security_group_rule" "secure_sgs" {
 }
 
 resource "aws_security_group_rule" "nonsecure_cidrs" {
+  count = "${length(var.ingress_allow_cidr_blocks) > 0 ? 1 : 0}"
+
   type        = "ingress"
   from_port   = 80
   to_port     = 80
