@@ -3,15 +3,15 @@ output "es_endpoint" {
 }
 
 output "es_arn" {
-  value ="${aws_elasticsearch_domain.es.arn}"
+  value = "${aws_elasticsearch_domain.es.arn}"
 }
 
 output "es_domain_id" {
-  value =  "${aws_elasticsearch_domain.es.domain_id}"
+  value = "${aws_elasticsearch_domain.es.domain_id}"
 }
 
 output "es_kibana_endpoint" {
-  value =  "${aws_elasticsearch_domain.es.kibana_endpoint}"
+  value = "${aws_elasticsearch_domain.es.kibana_endpoint}"
 }
 
 output "es_availability_zones_ids" {
@@ -20,4 +20,8 @@ output "es_availability_zones_ids" {
 
 output "es_vpc_ids" {
   value = "${aws_elasticsearch_domain.es.vpc_options.0.vpc_id}"
+}
+
+output "es_sg" {
+  value = "${aws_security_group.elasticsearch.id}"
 }
