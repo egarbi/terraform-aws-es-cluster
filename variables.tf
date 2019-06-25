@@ -6,8 +6,9 @@ variable "name" {
 }
 
 variable "subnet_ids" {
+  default     = []
   description = "List of VPC Subnet IDs for the Elastic Search Service EndPoints will be created."
-  type = "list"
+  type        = "list"
 }
 
 variable "vpc_id" {
@@ -17,8 +18,8 @@ variable "vpc_id" {
 }
 
 variable "zone_id" {
-  default     = "Route 53 zone id where our "
-  description = ""
+  default     = ""
+  description = "Route 53 zone id where the DNS record will be created."
   type        = "string"
 }
 
