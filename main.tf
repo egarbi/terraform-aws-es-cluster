@@ -87,6 +87,7 @@ resource "aws_elasticsearch_domain" "es" {
 
 # Add ALB record on DNS
 resource "aws_route53_record" "main" {
+  count = "${length(var.zone_id) > 0 ? 1 : 0}"
   zone_id = "${var.zone_id}"
   name    = "${var.name}"
   type    = "CNAME"

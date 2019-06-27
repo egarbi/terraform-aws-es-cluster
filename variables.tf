@@ -16,13 +16,13 @@ variable "vpc_id" {
   type        = "string"
 }
 
+// Optional
 variable "zone_id" {
-  default     = "Route 53 zone id where our "
-  description = ""
+  default     = ""
+  description = "Route 53 zone id where our Elastic Search Service EndPoints can be stored"
   type        = "string"
 }
 
-// Optional
 variable "access_policies" {
   default     = ""
   description = "IAM policy document specifying the access policies for the domain."
