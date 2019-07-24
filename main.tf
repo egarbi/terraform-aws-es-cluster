@@ -4,7 +4,7 @@ resource "aws_security_group" "elasticsearch" {
 
   vpc_id      = "${var.vpc_id}"
   tags        = {
-    Name = "${var.name}"  
+    Name = "${var.elasticsearch_sg_name}"  
   }
 }
 
