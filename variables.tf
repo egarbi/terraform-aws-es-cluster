@@ -1,29 +1,26 @@
 // Required
 variable "name" {
-  default     = ""
   description = "Elastic Search Service cluster name."
   type        = "string"
 }
 
 variable "subnet_ids" {
-  default     = []
   description = "List of VPC Subnet IDs for the Elastic Search Service EndPoints will be created."
   type        = "list"
 }
 
 variable "vpc_id" {
-  default     = ""
   description = "Vpc id where the Elastic Search Service cluster will be launched."
   type        = "string"
 }
 
+// Optional
 variable "zone_id" {
   default     = ""
   description = "Route 53 zone id where the DNS record will be created."
   type        = "string"
 }
 
-// Optional
 variable "access_policies" {
   default     = ""
   description = "IAM policy document specifying the access policies for the domain."

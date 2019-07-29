@@ -49,15 +49,15 @@ CONFIG
 | itype | Elastic Search Service cluster Ec2 instance type. | string | `"m4.large.elasticsearch"` | no |
 | mcount | Elastic Search Service cluster dedicated master Ec2 instance number. | string | `"0"` | no |
 | mtype | Elastic Search Service cluster dedicated master Ec2 instance type. | string | `""` | no |
-| name | Elastic Search Service cluster name. | string | `""` | yes |
+| name | Elastic Search Service cluster name. | string | n/a | yes |
 | rest\_action\_multi\_allow\_explicit\_index | Specifies whether explicit references to indices are allowed inside the body of HTTP requests. | string | `"true"` | no |
 | snapshot\_start | Elastic Search Service maintenance/snapshot start time. | string | `"0"` | no |
 | subnet\_ids | List of VPC Subnet IDs for the Elastic Search Service EndPoints will be created. | list | n/a | yes |
 | volume\_size | Default size of the EBS volumes. | string | `"35"` | no |
 | volume\_type | Default type of the EBS volumes. | string | `"gp2"` | no |
-| vpc\_id | Vpc id where the Elastic Search Service cluster will be launched. | string | `""` | yes |
+| vpc\_id | Vpc id where the Elastic Search Service cluster will be launched. | string | n/a | yes |
 | zone\_awareness | Indicates whether zone awareness is enabled. | string | `"false"` | no |
-| zone\_id | Route 53 zone id where the DNS record will be created. | string | `"Route 53 zone id where our "` | yes |
+| zone\_id | Route 53 zone id where the DNS record will be created. | string | `""` | no |
 
 ## Outputs
 | Name | Description |
