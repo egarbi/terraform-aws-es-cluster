@@ -12,7 +12,7 @@ resource "aws_security_group_rule" "secure_cidrs" {
   from_port   = 443
   to_port     = 443
   protocol    = "TCP"
-  cidr_blocks = ["${var.ingress_allow_cidr_blocks}"]
+  cidr_blocks = var.ingress_allow_cidr_blocks
 
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
@@ -61,10 +61,10 @@ resource "aws_elasticsearch_domain" "es" {
 
   vpc_options {
     security_group_ids = ["${aws_security_group.elasticsearch.id}"]
-    subnet_ids         = ["${var.subnet_ids}"]
+    subnet_ids         = var.subnet_ids
   }
 
-  advanced_options {
+  advanced_options = {
     "rest.action.multi.allow_explicit_index" = "${var.rest_action_multi_allow_explicit_index}"
     "indices.fielddata.cache.size"           = "${var.indices_fielddata_cache_size}"
     "indices.query.bool.max_clause_count"    = "${var.indices_query_bool_max_clause_count}"
@@ -80,7 +80,7 @@ resource "aws_elasticsearch_domain" "es" {
     automated_snapshot_start_hour = "${var.snapshot_start}"
   }
 
-  tags {
+  tags = {
     Domain = "${var.name}"
   }
 }
