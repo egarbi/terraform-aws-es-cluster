@@ -2,7 +2,10 @@ resource "aws_security_group" "elasticsearch" {
   name        = "${var.name}"
   description = "Security Group to allow traffic to ElasticSearch"
 
-  vpc_id = "${var.vpc_id}"
+  vpc_id      = "${var.vpc_id}"
+  tags        = {
+    Name = "${var.elasticsearch_sg_name}"  
+  }
 }
 
 resource "aws_security_group_rule" "secure_cidrs" {
