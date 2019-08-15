@@ -130,3 +130,9 @@ variable "volume_type" {
   description = "Default type of the EBS volumes."
   type        = "string"
 }
+
+variable "elasticsearch_sg_name" {
+  default     = ""
+  description = "Elasticsearch Main Security Group Name"
+  type        = "string"
+}

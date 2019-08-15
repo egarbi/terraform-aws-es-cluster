@@ -2,33 +2,50 @@ resource "aws_security_group" "elasticsearch" {
   name        = "${var.name}"
   description = "Security Group to allow traffic to ElasticSearch"
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["${var.ingress_allow_cidr_blocks}"]
+  vpc_id      = "${var.vpc_id}"
+  tags        = {
+    Name = "${var.elasticsearch_sg_name}"  
   }
+}
 
-  ingress {
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
-    security_groups = ["${var.ingress_allow_security_groups}"]
-  }
+resource "aws_security_group_rule" "secure_cidrs" {
+  count = "${length(var.ingress_allow_cidr_blocks) > 0 ? 1 : 0}"
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  type        = "ingress"
+  from_port   = 443
+  to_port     = 443
+  protocol    = "TCP"
+  cidr_blocks = ["${var.ingress_allow_cidr_blocks}"]
 
-  vpc_id = "${var.vpc_id}"
+  security_group_id = "${aws_security_group.elasticsearch.id}"
+}
+
+resource "aws_security_group_rule" "secure_sgs" {
+  count = "${length(var.ingress_allow_security_groups)}"
+
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = "${element(var.ingress_allow_security_groups, count.index)}"
+
+  security_group_id = "${aws_security_group.elasticsearch.id}"
+}
+
+resource "aws_security_group_rule" "egress_all" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = "${aws_security_group.elasticsearch.id}"
 }
 
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.name}"
   elasticsearch_version = "${var.elasticsearch_version}"
+
   encrypt_at_rest {
     enabled    = "${var.encryption_enabled}"
     kms_key_id = "${var.encryption_kms_key_id}"
