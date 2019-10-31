@@ -26,7 +26,7 @@ module "es-cluster" {
 
   name                      = "example"
   vpc_id                    = "${data.aws_vpc.default.id}"
-  subnet_ids                = "${tolist(data.aws_subnet_ids.default.ids[0],data.aws_subnet_ids.default.ids[1])}"
+  subnet_ids                = "${tolist(data.aws_subnet.default.0.id,data.aws_subnet.default.1.id)}"
   zone_id                   = "${data.aws_route53_zone.selected.zone_id}"
   itype                     = "m4.large.elasticsearch"
   icount                    = 2
