@@ -37,6 +37,7 @@ CONFIG
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | access\_policies | IAM policy document specifying the access policies for the domain. | string | `""` | no |
+| create\_iam\_service\_linked\_role | Control the creation of the default service role, set it to false if you have already created it. | bool | true | no |
 | dedicated\_master | Indicates whether our cluster have dedicated master nodes enabled. | string | `"false"` | no |
 | elasticsearch\_version | Elastic Search Service cluster version number. | string | `"5.5"` | no |
 | encryption\_enabled | Enable encription in Elastic Search. | string | `"false"` | no |
