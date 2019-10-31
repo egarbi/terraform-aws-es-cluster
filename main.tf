@@ -39,6 +39,13 @@ resource "aws_security_group_rule" "egress_all" {
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
 
+# https://github.com/terraform-providers/terraform-provider-aws/issues/5218
+resource "aws_iam_service_linked_role" "default" {
+  count            = var.create_iam_service_linked_role ? 1 : 0
+  aws_service_name = "es.amazonaws.com"
+  description      = "AWSServiceRoleForAmazonElasticsearchService Service-Linked Role"
+}
+
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.name}"
   elasticsearch_version = "${var.elasticsearch_version}"
@@ -83,6 +90,10 @@ resource "aws_elasticsearch_domain" "es" {
   tags = {
     Domain = "${var.name}"
   }
+
+  depends_on = [
+    "aws_iam_service_linked_role.default",
+  ]
 }
 
 # Add ALB record on DNS
