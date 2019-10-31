@@ -29,6 +29,7 @@ module "es-cluster" {
   subnet_ids                = "${tolist(data.aws_subnet_ids.default.ids)}" 
   zone_id                   = "${data.aws_route53_zone.selected.zone_id}"
   itype                     = "m4.large.elasticsearch"
+  icount                    = 3
   ingress_allow_cidr_blocks = "${tolist(data.aws_subnet.default.*.cidr_block)}"
   access_policies           = <<CONFIG
 {   
