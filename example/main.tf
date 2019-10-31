@@ -13,7 +13,7 @@ data "aws_subnet_ids" "default" {
 }
 
 data "aws_subnet" "default" {
-  count = "${length(data.aws_subnet_ids.default.ids)}"
+  count = "${length(data.aws_subnet_ids.default.ids)-1}"
   id    = "${tolist(data.aws_subnet_ids.default.ids)[count.index]}"
 }
 
