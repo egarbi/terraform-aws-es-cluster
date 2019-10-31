@@ -39,6 +39,10 @@ resource "aws_security_group_rule" "egress_all" {
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
 
+resource "aws_iam_service_linked_role" "es" {
+  aws_service_name = "es.amazonaws.com"
+}
+
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.name}"
   elasticsearch_version = "${var.elasticsearch_version}"
@@ -83,6 +87,10 @@ resource "aws_elasticsearch_domain" "es" {
   tags = {
     Domain = "${var.name}"
   }
+
+  depends_on = [
+    "aws_iam_service_linked_role.es",
+  ]
 }
 
 # Add ALB record on DNS
