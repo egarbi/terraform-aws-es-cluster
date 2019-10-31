@@ -39,8 +39,11 @@ resource "aws_security_group_rule" "egress_all" {
   security_group_id = "${aws_security_group.elasticsearch.id}"
 }
 
-resource "aws_iam_service_linked_role" "es" {
+# https://github.com/terraform-providers/terraform-provider-aws/issues/5218
+resource "aws_iam_service_linked_role" "default" {
+  count            = var.create_iam_service_linked_role ? 1 : 0
   aws_service_name = "es.amazonaws.com"
+  description      = "AWSServiceRoleForAmazonElasticsearchService Service-Linked Role"
 }
 
 resource "aws_elasticsearch_domain" "es" {
