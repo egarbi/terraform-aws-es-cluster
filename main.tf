@@ -92,7 +92,7 @@ resource "aws_elasticsearch_domain" "es" {
   }
 
   depends_on = [
-    "aws_iam_service_linked_role.es",
+    "aws_iam_service_linked_role.default",
   ]
 }
 
