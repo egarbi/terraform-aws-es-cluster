@@ -21,6 +21,10 @@ data "aws_route53_zone" "selected" {
   name         = "qndesign.studio"
 }
 
+data "aws_region" "current" {}
+
+data "aws_caller_identity" "current" {}
+
 module "es-cluster" {
   source = "../"
 
@@ -40,8 +44,7 @@ module "es-cluster" {
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Condition": {
-                "IpAddress": {"aws:SourceIp": ["156.114.160.31/32"]}
+            "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/example/*"
             }
         }
     ]
