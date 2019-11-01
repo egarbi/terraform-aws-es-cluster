@@ -21,14 +21,20 @@ data "aws_route53_zone" "selected" {
   name         = "qndesign.studio"
 }
 
+data "aws_region" "current" {}
+
+data "aws_caller_identity" "current" {}
+
 module "es-cluster" {
   source = "../"
 
   name                      = "example"
   vpc_id                    = "${data.aws_vpc.default.id}"
-  subnet_ids                = "${tolist(data.aws_subnet_ids.default.ids)}" 
+  subnet_ids                = [ "${data.aws_subnet.default.0.id}", "${data.aws_subnet.default.1.id}" ]
   zone_id                   = "${data.aws_route53_zone.selected.zone_id}"
   itype                     = "m4.large.elasticsearch"
+  icount                    = 2
+  zone_awareness            = true
   ingress_allow_cidr_blocks = "${tolist(data.aws_subnet.default.*.cidr_block)}"
   access_policies           = <<CONFIG
 {   
@@ -38,9 +44,7 @@ module "es-cluster" {
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Condition": {
-                "IpAddress": {"aws:SourceIp": ["156.114.160.31/32"]}
-            }
+            "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/example/*"
         }
     ]
 }
