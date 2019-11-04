@@ -35,7 +35,7 @@ module "es-cluster" {
   itype                     = "m4.large.elasticsearch"
   icount                    = 2
   zone_awareness            = true
-  ingress_allow_cidr_blocks = "${tolist(data.aws_subnet.default.*.cidr_block)}"
+  ingress_allow_cidr_blocks = [ "${data.aws_vpc.default.cidr_block}" ]
   access_policies           = <<CONFIG
 {   
     "Version": "2012-10-17",

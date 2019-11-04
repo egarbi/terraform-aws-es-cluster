@@ -4,12 +4,16 @@ AWS Elasticsearch Service Terraform Module
 Usage:
 
 ```hcl
+data "aws_region" "current" {}
+
+data "aws_caller_identity" "current" {}
+
 module "es-cluster" {
   source = "git::https://github.com/egarbi/terraform-aws-es-cluster"
 
   name                      = "example"
   vpc_id                    = "vpc-xxxxx"
-  subnet_ids                = [ "subnet-one","subnet-two"]
+  subnet_ids                = [ "subnet-one" ]
   zone_id                   = "ZA863HSKDDD9"
   itype                     = "m4.large.elasticsearch"
   ingress_allow_cidr_blocks = [ "10.20.0.0/16", "10.22.0.0/16" ]
@@ -21,9 +25,7 @@ module "es-cluster" {
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Condition": {
-                "IpAddress": {"aws:SourceIp": ["66.193.100.22/32"]}
-            }
+            "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/example/*"
         }
     ]
 }
