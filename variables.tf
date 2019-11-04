@@ -15,6 +15,11 @@ variable "vpc_id" {
 }
 
 // Optional
+variable "create_iam_service_linked_role" {
+  description = "Control the creation of the default service role, set it to false if you have already created it"
+  default = true
+}
+
 variable "zone_id" {
   default     = ""
   description = "Route 53 zone id where the DNS record will be created."
