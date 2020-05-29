@@ -113,6 +113,7 @@ variable "zone_awareness" {
 variable "az_count" {
   default     = 2
   description = "Number of Availability Zones for the domain to use with zone_awareness_enabled. Defaults to 2. Valid values: 2 or 3."
+  type        = number
 }
 
 variable "rest_action_multi_allow_explicit_index" {
