@@ -62,12 +62,11 @@ resource "aws_elasticsearch_domain" "es" {
     dedicated_master_type    = var.mtype
     dedicated_master_count   = var.mcount
     zone_awareness_enabled   = var.zone_awareness
-
+    zone_awareness_config {
+      availability_zone_count = var.az_count
+    }
   }
 
-  zone_awareness_config {
-    availability_zone_count = var.az_count
-  }
 
   access_policies = var.access_policies
 
