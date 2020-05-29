@@ -39,6 +39,7 @@ CONFIG
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | access\_policies | IAM policy document specifying the access policies for the domain. | string | `""` | no |
+| az_count | Number of Availability Zones for the domain to use with zone_awareness_enabled. Valid values: 2 or 3. | number | 2 | no |
 | create\_iam\_service\_linked\_role | Control the creation of the default service role, set it to false if you have already created it. | bool | true | no |
 | dedicated\_master | Indicates whether our cluster have dedicated master nodes enabled. | string | `"false"` | no |
 | elasticsearch\_version | Elastic Search Service cluster version number. | string | `"5.5"` | no |
