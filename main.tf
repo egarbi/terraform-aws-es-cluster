@@ -63,7 +63,7 @@ resource "aws_elasticsearch_domain" "es" {
     dedicated_master_count   = var.mcount
     zone_awareness_enabled   = var.zone_awareness
     zone_awareness_config {
-      availability_zone_count = var.az_count
+       availability_zone_count = length(var.subnet_ids) > 2 ? 3 : 2
     }
   }
 
