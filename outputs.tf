@@ -19,7 +19,7 @@ output "es_endpoint" {
 }
 
 output "es_kibana_endpoint" {
-  description = "Domain-specific endpoint for kibana without https scheme." 
+  description = "Domain-specific endpoint for kibana without https scheme."
   value       = "${aws_elasticsearch_domain.es.kibana_endpoint}"
 }
 
