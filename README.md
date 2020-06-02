@@ -34,6 +34,10 @@ CONFIG
 }
 ```
 
+ Note On Multi-AZ Support:<br>
+ AWS Supports up to 3 AZ's for a multi-az configuration. Understand that if you operate in more than 3 AZ's and you choose to deploy master nodes, only 3 AZ's will be supported and any more than that may result in TF returning AWS API errors.<br> 
+ For more information see [here](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-dedicatedmasternodes.html)
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
