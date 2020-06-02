@@ -18,7 +18,7 @@ data "aws_subnet" "default" {
 }
 
 data "aws_route53_zone" "selected" {
-  name         = "qndesign.studio"
+  name = "qndesign.studio"
 }
 
 data "aws_region" "current" {}
@@ -30,12 +30,12 @@ module "es-cluster" {
 
   name                      = "example"
   vpc_id                    = "${data.aws_vpc.default.id}"
-  subnet_ids                = [ "${data.aws_subnet.default.0.id}", "${data.aws_subnet.default.1.id}" ]
+  subnet_ids                = ["${data.aws_subnet.default.0.id}", "${data.aws_subnet.default.1.id}"]
   zone_id                   = "${data.aws_route53_zone.selected.zone_id}"
   itype                     = "m4.large.elasticsearch"
   icount                    = 2
   zone_awareness            = true
-  ingress_allow_cidr_blocks = [ "${data.aws_vpc.default.cidr_block}" ]
+  ingress_allow_cidr_blocks = ["${data.aws_vpc.default.cidr_block}"]
   access_policies           = <<CONFIG
 {   
     "Version": "2012-10-17",

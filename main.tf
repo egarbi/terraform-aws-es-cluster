@@ -63,7 +63,7 @@ resource "aws_elasticsearch_domain" "es" {
     dedicated_master_count   = var.mcount
     zone_awareness_enabled   = var.zone_awareness
     zone_awareness_config {
-       availability_zone_count = length(var.subnet_ids) > 2 ? 3 : 2
+      availability_zone_count = length(var.subnet_ids) > 2 ? 3 : 2
     }
   }
 
@@ -101,7 +101,7 @@ resource "aws_elasticsearch_domain" "es" {
 
 # Add ALB record on DNS
 resource "aws_route53_record" "main" {
-  count = length(var.zone_id) > 0 ? 1 : 0
+  count   = length(var.zone_id) > 0 ? 1 : 0
   zone_id = var.zone_id
   name    = var.name
   type    = "CNAME"
