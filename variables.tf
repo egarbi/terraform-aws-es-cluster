@@ -137,5 +137,11 @@ variable "volume_type" {
 variable "elasticsearch_sg_name" {
   default     = ""
   description = "Elasticsearch Main Security Group Name"
-  type        = "string"
+  type        = string
+}
+
+variable "tags" {
+  default     = {}
+  type        = map(string)
+  description = "A mapping of tags to assign to aws_elasticsearch_domain"
 }

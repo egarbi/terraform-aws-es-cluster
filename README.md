@@ -65,6 +65,7 @@ CONFIG
 | vpc\_id | Vpc id where the Elastic Search Service cluster will be launched. | string | n/a | yes |
 | zone\_awareness | Indicates whether zone awareness is enabled. | string | `"false"` | no |
 | zone\_id | Route 53 zone id where the DNS record will be created. | string | `""` | no |
+| tags | A mapping of tags to assign to aws_elasticsearch_domain | map(string) | `{}` | no |
 
 ## Outputs
 | Name | Description |

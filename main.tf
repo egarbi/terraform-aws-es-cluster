@@ -90,9 +90,12 @@ resource "aws_elasticsearch_domain" "es" {
     automated_snapshot_start_hour = var.snapshot_start
   }
 
-  tags = {
-    Domain = var.name
-  }
+  tags = merge(
+    {
+      "Domain" = var.name
+    },
+    var.tags,
+  )
 
   depends_on = [
     aws_iam_service_linked_role.default,
