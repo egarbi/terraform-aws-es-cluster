@@ -6,7 +6,7 @@ variable "name" {
 
 variable "subnet_ids" {
   description = "List of VPC Subnet IDs for the Elastic Search Service EndPoints will be created."
-  type        = list
+  type        = list(string)
 }
 
 variable "vpc_id" {
@@ -77,13 +77,13 @@ variable "indices_query_bool_max_clause_count" {
 variable "ingress_allow_cidr_blocks" {
   default     = []
   description = "Specifies the ingress CIDR blocks allowed."
-  type        = list
+  type        = list(string)
 }
 
 variable "ingress_allow_security_groups" {
   default     = []
   description = "Specifies the ingress security groups allowed."
-  type        = list
+  type        = list(string)
 }
 
 variable "itype" {
